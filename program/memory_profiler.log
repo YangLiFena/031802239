@@ -1,0 +1,30 @@
+Filename: main.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+    17 160.9922 MiB 160.9922 MiB       @staticmethod
+    18                                 @profile(precision=4,stream=open('memory_profiler.log','w+'))
+    19                                 def extract_keyword(content):  # 提取关键词
+    20                                     # 切割
+    21 229.6602 MiB  68.6680 MiB           seg = jieba.lcut(content, cut_all=True)  # 全模式分词
+    22                                     # print(seg)
+    23                                     # 提取关键词
+    24 230.2148 MiB   0.5547 MiB           keywords = jieba.analyse.extract_tags("/".join(seg), topK=200, withWeight=False)
+    25 230.2148 MiB   0.0000 MiB           return keywords
+
+
+Filename: main.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+    17 230.0039 MiB 230.0039 MiB       @staticmethod
+    18                                 @profile(precision=4,stream=open('memory_profiler.log','w+'))
+    19                                 def extract_keyword(content):  # 提取关键词
+    20                                     # 切割
+    21 230.0039 MiB   0.0000 MiB           seg = jieba.lcut(content, cut_all=True)  # 全模式分词
+    22                                     # print(seg)
+    23                                     # 提取关键词
+    24 230.6523 MiB   0.6484 MiB           keywords = jieba.analyse.extract_tags("/".join(seg), topK=200, withWeight=False)
+    25 230.6523 MiB   0.0000 MiB           return keywords
+
+

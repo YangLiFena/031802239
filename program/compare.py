@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # 思路：1、分词；2、列出所有词；3、分词编码；4、词频向量化；5、套用余弦函数计量两个句子的相似度。
-import sys
+from memory_profiler import profile
+import line_profiler
+# import sys
 import jieba
 import jieba.analyse
 # 机器学习包
@@ -14,6 +16,9 @@ class CosineSimilarity(object):
         self.s2 = content_y2
 
     @staticmethod
+    @profile
+
+
     def extract_keyword(content):  # 提取关键词
         # 切割
         seg = jieba.lcut(content, cut_all=True)  # 全模式分词
@@ -58,15 +63,16 @@ class CosineSimilarity(object):
 
 # 测试
 if __name__ == '__main__':
-    x1 = open(sys.argv[1], 'r', encoding='UTF-8')
+    x1 = open('orig.txt', 'r', encoding='UTF-8')
     content_x1 = x1.read()
     x1.close()
-    x2 = open(sys.argv[2], 'r', encoding='UTF-8')
+    x2 = open('orig_0.8_add.txt', 'r', encoding='UTF-8')
     content_x2 = x2.read()
     x2.close()
     similarity = CosineSimilarity(content_x1, content_x2)
     similarity = similarity.main()
-    ans_txt = open(sys.argv[3], 'w', encoding='UTF-8')
-    answer = str('%.2f' % similarity)
-    ans_txt.write(answer)
-    ans_txt.close()
+    print('%.2f' % similarity)
+    # ans_txt = open(sys.argv[3], 'w', encoding='UTF-8')
+    # answer = str('%.2f' % similarity)
+    # ans_txt.write(answer)
+    # ans_txt.close()

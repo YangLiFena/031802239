@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # 思路：1、分词；2、列出所有词；3、分词编码；4、词频向量化；5、套用余弦函数计量两个句子的相似度。
+from memory_profiler import profile
 import sys
 import jieba
 import jieba.analyse
@@ -14,6 +15,7 @@ class CosineSimilarity(object):
         self.s2 = content_y2
 
     @staticmethod
+    # @profile(precision=4,stream=open('memory_profiler.log','w+'))
     def extract_keyword(content):  # 提取关键词
         # 切割
         seg = jieba.lcut(content, cut_all=True)  # 全模式分词
