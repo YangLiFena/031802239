@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # 思路：1、分词；2、列出所有词；3、分词编码；4、词频向量化；5、套用余弦函数计量两个句子的相似度。
-from memory_profiler import profile
+# from memory_profiler import profile
 import line_profiler
 # import sys
 import jieba
@@ -17,8 +17,6 @@ class CosineSimilarity(object):
 
     @staticmethod
     @profile
-
-
     def extract_keyword(content):  # 提取关键词
         # 切割
         seg = jieba.lcut(content, cut_all=True)  # 全模式分词
@@ -28,6 +26,7 @@ class CosineSimilarity(object):
         return keywords
 
     @staticmethod
+    @profile
     def one_hot(word_dict, keywords):  # oneHot编码函数
         # cut_code = [word_dict[word] for word in keywords]
         cut_code = [0] * len(word_dict)
@@ -35,6 +34,7 @@ class CosineSimilarity(object):
             cut_code[word_dict[word]] += 1
         return cut_code
 
+    @profile
     def main(self):
         # 提取关键词
         keywords1 = self.extract_keyword(self.s1)
