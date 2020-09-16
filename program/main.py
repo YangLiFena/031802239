@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
 # 思路：1、分词；2、列出所有词；3、分词编码；4、词频向量化；5、套用余弦函数计量两个句子的相似度。
-from memory_profiler import profile
 import sys
 import jieba
 import jieba.analyse
 # 机器学习包
 from sklearn.metrics.pairwise import cosine_similarity
 
+
+# 空文本异常
+class EmptyError(Exception):
+    def __init__(self):
+        print('The txt is empty')
+        
 
 class CosineSimilarity(object):
 
@@ -15,7 +20,6 @@ class CosineSimilarity(object):
         self.s2 = content_y2
 
     @staticmethod
-    # @profile(precision=4,stream=open('memory_profiler.log','w+'))
     def extract_keyword(content):  # 提取关键词
         # 切割
         seg = jieba.lcut(content, cut_all=True)  # 全模式分词
@@ -26,7 +30,6 @@ class CosineSimilarity(object):
 
     @staticmethod
     def one_hot(word_dict, keywords):  # oneHot编码函数
-        # cut_code = [word_dict[word] for word in keywords]
         cut_code = [0] * len(word_dict)
         for word in keywords:
             cut_code[word_dict[word]] += 1
@@ -51,10 +54,10 @@ class CosineSimilarity(object):
         # 除零处理
         try:
             sim = cosine_similarity(sample)  # 输出结果为一2*2矩阵
-            # print(sim)
+        # print(sim)
             return sim[1][0]  # sim[0][1]也可
         except Exception as e:  # 捕获所有错误类型
-            print(e)  # 打印异常到屏幕
+            print(e.args)  # 打印异常到屏幕
             return 0.0
 
 
@@ -65,6 +68,9 @@ if __name__ == '__main__':
     x1.close()
     x2 = open(sys.argv[2], 'r', encoding='UTF-8')
     content_x2 = x2.read()
+    if content_x2 == '':
+        # 文本为空，抛出异常
+        raise EmptyError
     x2.close()
     similarity = CosineSimilarity(content_x1, content_x2)
     similarity = similarity.main()
