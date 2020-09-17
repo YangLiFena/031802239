@@ -80,4 +80,4 @@ if __name__ == '__main__':
     # answer = str('%.2f' % similarity)
     ans_txt.write('%.2f' % similarity)
     ans_txt.close()
-    print('查重率为:%.2f' % similarity)
+    print('0')
