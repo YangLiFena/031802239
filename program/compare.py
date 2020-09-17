@@ -75,7 +75,7 @@ if __name__ == '__main__':
     x1 = open('orig.txt', 'r', encoding='UTF-8')
     content_x1 = x1.read()
     x1.close()
-    x2 = open('none.txt', 'r', encoding='UTF-8')
+    x2 = open('orig_0.8_dis_1.txt', 'r', encoding='UTF-8')
     content_x2 = x2.read()
     if content_x2 == '':
         # 文本为空，抛出异常
